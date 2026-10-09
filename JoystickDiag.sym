@@ -1,0 +1,9 @@
+--- Symbol List (sorted by symbol)
+CHANNEL                  1032              (R )
+MAIN                     1015              (R )
+START                    1012                  
+SWEEP                    1028              (R )
+WAIT_REARM               103c              (R )
+WAIT_SCAN_1              1045              (R )
+WAIT_SCAN_2              104b              (R )
+--- End of Symbol List.

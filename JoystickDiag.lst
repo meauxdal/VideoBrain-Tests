@@ -1,0 +1,120 @@
+------- FILE JoystickDiag.asm LEVEL 1 PASS 2
+      1  10b1					      processor	F8
+      2  1000					      org	$1000
+      3  1000
+      4  1000		       aa 55 00 	      db.b	$aa,$55,$00
+      5  1003		       00 00 00 00*	      db.b	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+      6  1012
+      7  1012				   START
+      8  1012		       29 10 15 	      jmp	MAIN
+      9  1015
+     10  1015				   MAIN
+     11  1015		       28 40 d0 	      pi	$40d0	; Initialize the F8 stack.
+     12  1018		       28 41 d5 	      pi	$41d5	; Clear the BIOS text screen.
+     13  101b
+     14  101b		       1a		      di
+     15  101c		       70		      lis	$0
+     16  101d		       b1		      outs	1	; Disable and re-arm EJOY.
+     17  101e		       2a 0f ea 	      dci	$0fea
+     18  1021		       16		      lm
+     19  1022		       22 02		      oi	$02
+     20  1024		       2a 08 f7 	      dci	$08f7
+     21  1027		       17		      st		; Preserve display mode and enable freeze.
+     22  1028
+     23  1028				   SWEEP
+     24  1028		       2a 0c 00 	      dci	$0c00
+     25  102b		       70		      lis	$0
+     26  102c		       17		      st		; Channel index.
+     27  102d		       2a 0c 01 	      dci	$0c01
+     28  1030		       71		      lis	$1
+     29  1031		       17		      st		; One-hot pot select.
+     30  1032
+     31  1032				   CHANNEL
+     32  1032		       70		      lis	$0
+     33  1033		       b1		      outs	1	; Hold EJOY disabled during selection.
+     34  1034		       2a 0c 01 	      dci	$0c01
+     35  1037		       16		      lm
+     36  1038		       b0		      outs	0	; Select one pot channel.
+     37  1039		       20 20		      li	$20
+     38  103b		       59		      lr	$9,a
+     39  103c				   WAIT_REARM
+     40  103c		       39		      ds	$9
+     41  103d		       94 fe		      bf	$4,WAIT_REARM	; Cross HBLANK with the selected pot stable.
+     42  103f		       20 80		      li	$80
+     43  1041		       b1		      outs	1	; Enable EJOY.
+     44  1042
+     45  1042		       20 ff		      li	$ff
+     46  1044		       59		      lr	$9,a
+     47  1045				   WAIT_SCAN_1
+     48  1045		       39		      ds	$9
+     49  1046		       94 fe		      bf	$4,WAIT_SCAN_1
+     50  1048		       20 ff		      li	$ff
+     51  104a		       59		      lr	$9,a
+     52  104b				   WAIT_SCAN_2
+     53  104b		       39		      ds	$9
+     54  104c		       94 fe		      bf	$4,WAIT_SCAN_2
+     55  104e
+     56  104e		       70		      lis	$0
+     57  104f		       b1		      outs	1	; Disable and re-arm EJOY.
+     58  1050
+     59  1050		       2a 08 f8 	      dci	$08f8
+     60  1053		       16		      lm
+     61  1054		       2a 0c 02 	      dci	$0c02
+     62  1057		       17		      st
+     63  1058		       2a 08 f9 	      dci	$08f9
+     64  105b		       16		      lm
+     65  105c		       2a 0c 03 	      dci	$0c03
+     66  105f		       17		      st
+     67  1060		       2a 08 fa 	      dci	$08fa
+     68  1063		       16		      lm
+     69  1064		       2a 0c 04 	      dci	$0c04
+     70  1067		       17		      st		; Snapshot before BIOS drawing.
+     71  1068
+     72  1068		       2a 0c 00 	      dci	$0c00
+     73  106b		       16		      lm
+     74  106c		       13		      sl	1
+     75  106d		       13		      sl	1
+     76  106e		       13		      sl	1
+     77  106f		       2a 0f df 	      dci	$0fdf
+     78  1072		       17		      st		; Place this channel on its own row.
+     79  1073
+     80  1073		       2a 0c 00 	      dci	$0c00
+     81  1076		       16		      lm
+     82  1077		       62		      lisu	2
+     83  1078		       6c		      lisl	4
+     84  1079		       5c		      lr	(is),a	; PI overwrites A; save the byte first.
+     85  107a		       28 42 1e 	      pi	$421e
+     86  107d		       2a 0c 02 	      dci	$0c02
+     87  1080		       16		      lm
+     88  1081		       62		      lisu	2
+     89  1082		       6c		      lisl	4
+     90  1083		       5c		      lr	(is),a	; PI overwrites A; save the byte first.
+     91  1084		       28 42 1e 	      pi	$421e
+     92  1087		       2a 0c 03 	      dci	$0c03
+     93  108a		       16		      lm
+     94  108b		       62		      lisu	2
+     95  108c		       6c		      lisl	4
+     96  108d		       5c		      lr	(is),a	; PI overwrites A; save the byte first.
+     97  108e		       28 42 1e 	      pi	$421e
+     98  1091		       2a 0c 04 	      dci	$0c04
+     99  1094		       16		      lm
+    100  1095		       62		      lisu	2
+    101  1096		       6c		      lisl	4
+    102  1097		       5c		      lr	(is),a	; PI overwrites A; save the byte first.
+    103  1098		       28 42 1e 	      pi	$421e
+    104  109b
+    105  109b		       2a 0c 01 	      dci	$0c01
+    106  109e		       16		      lm
+    107  109f		       13		      sl	1
+    108  10a0		       2a 0c 01 	      dci	$0c01
+    109  10a3		       17		      st
+    110  10a4
+    111  10a4		       2a 0c 00 	      dci	$0c00
+    112  10a7		       16		      lm
+    113  10a8		       1f		      inc
+    114  10a9		       2a 0c 00 	      dci	$0c00
+    115  10ac		       17		      st
+    116  10ad		       25 08		      ci	$8
+    117  10af		       94 82		      bf	$4,CHANNEL
+    118  10b1
+    119  10b1		       29 10 28 	      jmp	SWEEP

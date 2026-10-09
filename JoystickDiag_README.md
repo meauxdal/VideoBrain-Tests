@@ -1,6 +1,6 @@
 # VideoBrain joystick diagnostic
 
-Set `Joystick` to `On` and cartridge type to `Standard`, then load `JoystickDiag.bin` through `F1 -> BIN -> Load Cartridge`. It scans pot channels 0 through 7 continuously. Channel 00 is P1 X, 01 P1 Y, 02 P2 X, 03 P2 Y, through 06 P4 X and 07 P4 Y. Each screen row shows two channels side by side; each channel record is eight hex digits.
+Set `Joystick` to `On` and cartridge type to `Standard`, then load `JoystickDiag.bin` through `F1 -> BIN -> Load Cartridge`. It scans pot channels 0 through 7 continuously. The current core maps 00 to P1 vertical, 01 to P1 horizontal, 02 to P2 vertical, 03 to P2 horizontal, through 06/07 for P4. Each screen row shows two channels side by side; each channel record is eight hex digits.
 
 Each row is four hexadecimal bytes, left to right:
 
@@ -12,3 +12,5 @@ Each row is four hexadecimal bytes, left to right:
 The screen refreshes continuously. Let it run with the stick untouched, then record a short video while slowly sweeping the stick through its range. The rows show the raw captures; game movement and directional thresholds are not involved.
 
 `JoystickDiag.asm` is the source. The binary is assembled for a VideoBrain cartridge starting at `$1000`, with the program entry at `$1012`.
+
+Each channel enables EJOY, waits for timer expiry, disables EJOY, and snapshots all three freeze registers before drawing. The display mode is preserved. Capture values are raster coordinates, not direct 0..255 pot readings.
