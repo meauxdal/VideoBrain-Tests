@@ -1,5 +1,7 @@
 # VideoBrain diagnostics
 
+The [Information Manager hardware test plan](InfoManager/HARDWARE-TEST-PLAN.md) covers cartridge database entry, review, editing, merging and reporting. Use its [results sheet](InfoManager/RESULTS.md) to record physical MiSTer observations and output-tape reloads.
+
 | ROM | Purpose | Expected result |
 | --- | --- | --- |
 | [JoystickDiag.bin](JoystickDiag_README.md) | Scan all eight joystick pot channels and display UV201 freeze registers. | Raw raster captures change as each stick moves. |
