@@ -1,0 +1,14 @@
+--- Symbol List (sorted by symbol)
+CART_READ                1065              (R )
+CONTROL                  1027              (R )
+GAP1                     1035              (R )
+GAP2                     104a              (R )
+GAP3                     105f              (R )
+MAIN                     1015              (R )
+RAM_READ                 103b              (R )
+RAM_WRITE                1050              (R )
+REPEAT                   1018              (R )
+START                    1012                  
+SYNC                     101e              (R )
+SYNC_OUTER               101b              (R )
+--- End of Symbol List.

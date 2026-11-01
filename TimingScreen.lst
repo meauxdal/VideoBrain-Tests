@@ -1,0 +1,164 @@
+------- FILE TimingScreen.asm LEVEL 1 PASS 2
+      1  17ff					      processor	F8
+      2  1000					      org	$1000
+      3  1000		       aa 55 00 	      db.b	$aa,$55,$00
+      4  1003		       00 00 00 00*	      db.b	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+      5  1012		       29 10 15 	      jmp	MAIN
+      6  1015
+      7  1015				   MAIN
+      8  1015		       28 40 d0 	      pi	$40d0
+      9  1018		       28 41 d5 	      pi	$41d5
+     10  101b		       1a		      di
+     11  101c
+     12  101c				   AGAIN
+     13  101c				   WAIT_CONTROL
+     14  101c		       2a 08 fb 	      dci	$08fb
+     15  101f		       16		      lm
+     16  1020		       25 20		      ci	$20
+     17  1022		       94 f9		      bf	4,WAIT_CONTROL
+     18  1024		       20 ff		      li	$ff
+     19  1026		       59		      lr	9,a
+     20  1027				   CONTROL
+     21  1027		       2a 0c 10 	      dci	$0c10
+     22  102a		       70		      lis	0
+     23  102b		       39		      ds	9
+     24  102c		       94 fa		      bf	4,CONTROL
+     25  102e		       2a 08 fb 	      dci	$08fb
+     26  1031		       16		      lm
+     27  1032		       2a 0c 00 	      dci	$0c00
+     28  1035		       17		      st
+     29  1036
+     30  1036				   WAIT_READ
+     31  1036		       2a 08 fb 	      dci	$08fb
+     32  1039		       16		      lm
+     33  103a		       25 20		      ci	$20
+     34  103c		       94 f9		      bf	4,WAIT_READ
+     35  103e		       20 ff		      li	$ff
+     36  1040		       59		      lr	9,a
+     37  1041				   RAM_READ
+     38  1041		       2a 0c 10 	      dci	$0c10
+     39  1044		       16		      lm
+     40  1045		       39		      ds	9
+     41  1046		       94 fa		      bf	4,RAM_READ
+     42  1048		       2a 08 fb 	      dci	$08fb
+     43  104b		       16		      lm
+     44  104c		       2a 0c 01 	      dci	$0c01
+     45  104f		       17		      st
+     46  1050
+     47  1050				   WAIT_WRITE
+     48  1050		       2a 08 fb 	      dci	$08fb
+     49  1053		       16		      lm
+     50  1054		       25 20		      ci	$20
+     51  1056		       94 f9		      bf	4,WAIT_WRITE
+     52  1058		       20 ff		      li	$ff
+     53  105a		       59		      lr	9,a
+     54  105b				   RAM_WRITE
+     55  105b		       2a 0c 10 	      dci	$0c10
+     56  105e		       17		      st
+     57  105f		       39		      ds	9
+     58  1060		       94 fa		      bf	4,RAM_WRITE
+     59  1062		       2a 08 fb 	      dci	$08fb
+     60  1065		       16		      lm
+     61  1066		       2a 0c 02 	      dci	$0c02
+     62  1069		       17		      st
+     63  106a
+     64  106a				   WAIT_CART
+     65  106a		       2a 08 fb 	      dci	$08fb
+     66  106d		       16		      lm
+     67  106e		       25 20		      ci	$20
+     68  1070		       94 f9		      bf	4,WAIT_CART
+     69  1072		       20 ff		      li	$ff
+     70  1074		       59		      lr	9,a
+     71  1075				   CART_READ
+     72  1075		       2a 10 00 	      dci	$1000
+     73  1078		       16		      lm
+     74  1079		       39		      ds	9
+     75  107a		       94 fa		      bf	4,CART_READ
+     76  107c		       2a 08 fb 	      dci	$08fb
+     77  107f		       16		      lm
+     78  1080		       2a 0c 03 	      dci	$0c03
+     79  1083		       17		      st
+     80  1084
+     81  1084		       70		      lis	0
+     82  1085		       2a 0f df 	      dci	$0fdf
+     83  1088		       17		      st
+     84  1089		       2a 0c 00 	      dci	$0c00
+     85  108c		       16		      lm
+     86  108d		       14		      sr	4
+     87  108e		       2a 11 17 	      dci	HEX_FONT
+     88  1091		       8e		      adc
+     89  1092		       16		      lm
+     90  1093		       58		      lr	8,a
+     91  1094		       28 40 d9 	      pi	$40d9
+     92  1097		       28 41 2d 	      pi	$412d
+     93  109a		       2a 0c 00 	      dci	$0c00
+     94  109d		       16		      lm
+     95  109e		       21 0f		      ni	$0f
+     96  10a0		       2a 11 17 	      dci	HEX_FONT
+     97  10a3		       8e		      adc
+     98  10a4		       16		      lm
+     99  10a5		       58		      lr	8,a
+    100  10a6		       28 40 d9 	      pi	$40d9
+    101  10a9		       28 41 2d 	      pi	$412d
+    102  10ac		       2a 0c 01 	      dci	$0c01
+    103  10af		       16		      lm
+    104  10b0		       14		      sr	4
+    105  10b1		       2a 11 17 	      dci	HEX_FONT
+    106  10b4		       8e		      adc
+    107  10b5		       16		      lm
+    108  10b6		       58		      lr	8,a
+    109  10b7		       28 40 d9 	      pi	$40d9
+    110  10ba		       28 41 2d 	      pi	$412d
+    111  10bd		       2a 0c 01 	      dci	$0c01
+    112  10c0		       16		      lm
+    113  10c1		       21 0f		      ni	$0f
+    114  10c3		       2a 11 17 	      dci	HEX_FONT
+    115  10c6		       8e		      adc
+    116  10c7		       16		      lm
+    117  10c8		       58		      lr	8,a
+    118  10c9		       28 40 d9 	      pi	$40d9
+    119  10cc		       28 41 2d 	      pi	$412d
+    120  10cf		       2a 0c 02 	      dci	$0c02
+    121  10d2		       16		      lm
+    122  10d3		       14		      sr	4
+    123  10d4		       2a 11 17 	      dci	HEX_FONT
+    124  10d7		       8e		      adc
+    125  10d8		       16		      lm
+    126  10d9		       58		      lr	8,a
+    127  10da		       28 40 d9 	      pi	$40d9
+    128  10dd		       28 41 2d 	      pi	$412d
+    129  10e0		       2a 0c 02 	      dci	$0c02
+    130  10e3		       16		      lm
+    131  10e4		       21 0f		      ni	$0f
+    132  10e6		       2a 11 17 	      dci	HEX_FONT
+    133  10e9		       8e		      adc
+    134  10ea		       16		      lm
+    135  10eb		       58		      lr	8,a
+    136  10ec		       28 40 d9 	      pi	$40d9
+    137  10ef		       28 41 2d 	      pi	$412d
+    138  10f2		       2a 0c 03 	      dci	$0c03
+    139  10f5		       16		      lm
+    140  10f6		       14		      sr	4
+    141  10f7		       2a 11 17 	      dci	HEX_FONT
+    142  10fa		       8e		      adc
+    143  10fb		       16		      lm
+    144  10fc		       58		      lr	8,a
+    145  10fd		       28 40 d9 	      pi	$40d9
+    146  1100		       28 41 2d 	      pi	$412d
+    147  1103		       2a 0c 03 	      dci	$0c03
+    148  1106		       16		      lm
+    149  1107		       21 0f		      ni	$0f
+    150  1109		       2a 11 17 	      dci	HEX_FONT
+    151  110c		       8e		      adc
+    152  110d		       16		      lm
+    153  110e		       58		      lr	8,a
+    154  110f		       28 40 d9 	      pi	$40d9
+    155  1112		       28 41 2d 	      pi	$412d
+    156  1115				   STOP
+    157  1115		       90 ff		      br	STOP
+    158  1117
+    159  1117				   HEX_FONT
+    160  1117		       36 24 34 32*	      db.b	54,36,52,50,34,32,30,14,12,10,17,45,49,31,11,29
+    161  1127
+    162  17ff					      org	$17ff,0
+    163  17ff		       00		      db.b	0

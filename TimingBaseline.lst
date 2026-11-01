@@ -1,0 +1,95 @@
+------- FILE TimingBaseline.asm LEVEL 1 PASS 2
+      1  17ff					      processor	F8
+      2  1000					      org	$1000
+      3  1000
+      4  1000		       aa 55 00 	      db.b	$aa,$55,$00
+      5  1003		       00 00 00 00*	      db.b	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+      6  1012
+      7  1012				   START
+      8  1012		       29 10 15 	      jmp	MAIN
+      9  1015
+     10  1015				   MAIN
+     11  1015		       1a		      di
+     12  1016		       70		      lis	0
+     13  1017		       b1		      outs	1
+     14  1018
+     15  1018				   REPEAT
+     16  1018		       20 02		      li	$02
+     17  101a		       57		      lr	7,a
+     18  101b				   SYNC_OUTER
+     19  101b		       20 ff		      li	$ff
+     20  101d		       58		      lr	8,a
+     21  101e				   SYNC
+     22  101e		       38		      ds	8
+     23  101f		       94 fe		      bf	4,SYNC
+     24  1021		       37		      ds	7
+     25  1022		       94 f8		      bf	4,SYNC_OUTER
+     26  1024
+     27  1024		       20 40		      li	$40
+     28  1026		       59		      lr	9,a
+     29  1027				   CONTROL
+     30  1027		       20 10		      li	$10
+     31  1029		       b1		      outs	1
+     32  102a		       2a 0c 80 	      dci	$0c80
+     33  102d		       70		      lis	0
+     34  102e		       b1		      outs	1
+     35  102f		       39		      ds	9
+     36  1030		       94 f6		      bf	4,CONTROL
+     37  1032
+     38  1032		       20 ff		      li	$ff
+     39  1034		       58		      lr	8,a
+     40  1035				   GAP1
+     41  1035		       38		      ds	8
+     42  1036		       94 fe		      bf	4,GAP1
+     43  1038
+     44  1038		       20 40		      li	$40
+     45  103a		       59		      lr	9,a
+     46  103b				   RAM_READ
+     47  103b		       20 10		      li	$10
+     48  103d		       b1		      outs	1
+     49  103e		       2a 0c 80 	      dci	$0c80
+     50  1041		       16		      lm
+     51  1042		       70		      lis	0
+     52  1043		       b1		      outs	1
+     53  1044		       39		      ds	9
+     54  1045		       94 f5		      bf	4,RAM_READ
+     55  1047
+     56  1047		       20 ff		      li	$ff
+     57  1049		       58		      lr	8,a
+     58  104a				   GAP2
+     59  104a		       38		      ds	8
+     60  104b		       94 fe		      bf	4,GAP2
+     61  104d
+     62  104d		       20 40		      li	$40
+     63  104f		       59		      lr	9,a
+     64  1050				   RAM_WRITE
+     65  1050		       20 10		      li	$10
+     66  1052		       b1		      outs	1
+     67  1053		       2a 0c 80 	      dci	$0c80
+     68  1056		       17		      st
+     69  1057		       70		      lis	0
+     70  1058		       b1		      outs	1
+     71  1059		       39		      ds	9
+     72  105a		       94 f5		      bf	4,RAM_WRITE
+     73  105c
+     74  105c		       20 ff		      li	$ff
+     75  105e		       58		      lr	8,a
+     76  105f				   GAP3
+     77  105f		       38		      ds	8
+     78  1060		       94 fe		      bf	4,GAP3
+     79  1062
+     80  1062		       20 40		      li	$40
+     81  1064		       59		      lr	9,a
+     82  1065				   CART_READ
+     83  1065		       20 10		      li	$10
+     84  1067		       b1		      outs	1
+     85  1068		       2a 10 00 	      dci	$1000
+     86  106b		       16		      lm
+     87  106c		       70		      lis	0
+     88  106d		       b1		      outs	1
+     89  106e		       39		      ds	9
+     90  106f		       94 f5		      bf	4,CART_READ
+     91  1071		       29 10 18 	      jmp	REPEAT
+     92  1074
+     93  17ff					      org	$17ff,0
+     94  17ff		       00		      db.b	0

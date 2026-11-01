@@ -4,6 +4,8 @@ The [Information Manager hardware test plan](InfoManager/HARDWARE-TEST-PLAN.md) 
 
 | ROM | Purpose | Expected result |
 | --- | --- | --- |
+| [TimingBaseline.bin](TimingBaseline.md) | Repeat marked control, RAM and cartridge access workloads for timing captures. | Four recurring groups of 64 marker pulses; hardware validation pending. |
+| [TimingScreen.bin](TimingScreen.md) | Show coarse raster positions after fixed timing workloads. | Four hexadecimal bytes; original-hardware validation pending. |
 | [JoystickDiag.bin](JoystickDiag_README.md) | Scan all eight joystick pot channels and display UV201 freeze registers. | Raw raster captures change as each stick moves. |
 | `dac_test.bin` | Latch DAC codes 0, 1, 2, 3 through CPU ports 0/1, then hold code 3. | Audio trace reports transitions to 1, 2, 3; no picture or continuous tone. |
 | `selftest.rom` | Exercise CPU, RAM, UV201 object registers, DMA, FIFO and rendering without BIOS. | One solid 16x16 object at programmed X=40, Y=64, on a black background. |

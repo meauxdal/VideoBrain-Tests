@@ -1,0 +1,14 @@
+--- Symbol List (sorted by symbol)
+AGAIN                    101c                  
+CART_READ                1075              (R )
+CONTROL                  1027              (R )
+HEX_FONT                 1117              (R )
+MAIN                     1015              (R )
+RAM_READ                 1041              (R )
+RAM_WRITE                105b              (R )
+STOP                     1115              (R )
+WAIT_CART                106a              (R )
+WAIT_CONTROL             101c              (R )
+WAIT_READ                1036              (R )
+WAIT_WRITE               1050              (R )
+--- End of Symbol List.
